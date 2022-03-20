@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login-logout -JWT</title>
+  </head>
+  <body>
+    <h1>Registration</h1>
+    <form id="reg-form">
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="password" />
+      <button type="submit">click</button>
+    </form>
+
+    <script>
+      const form = document.getElementById("reg-form");
+      form.addEventListener("submit", registerUser);
+
+      //we can send data to node server many ways
+
+      //1. send data as JSON
+      //2. send data as url-encoded
+
+      async function registerUser(e) {
+        e.preventDefault();
+        const userName = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const result = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userName, password }),
+        }).then((res) => res.json());
+        console.log("response", result);
+      }
+    </script>
+  </body>
+</html>
